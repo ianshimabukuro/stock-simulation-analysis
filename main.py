@@ -1,5 +1,6 @@
 from Investor import *
 import matplotlib.pyplot as plt
+from scipy.stats import skewnorm
 
 intrinsic_value = 20
 current_value = 20

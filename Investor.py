@@ -1,5 +1,7 @@
 import numpy as np
 import random
+from scipy.stats import skewnorm
+
 class Investor:
     def __init__(self, evaluation_points, age):
         self.evaluation_points = evaluation_points
