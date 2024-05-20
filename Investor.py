@@ -18,7 +18,7 @@ class Investor:
     def set_to_selling(self,market,price,my_shares):
         ids = []
         for mine in my_shares:
-            ids.append(mine.id)
+            ids.append(mine[0])
 
         if not self.my_shares:
             print("Investor doesnt own any stocks")
@@ -31,7 +31,7 @@ class Investor:
     def set_to_hold(self,market,my_shares):
         ids = []
         for mine in my_shares:
-            ids.append(mine.id)
+            ids.append(mine[0])
         if not self.my_shares:
             print("Investor doesnt own any stocks")
         else:
@@ -46,7 +46,7 @@ class Investor:
         list_stock= market.stocks
         for stock in list_stock:
             if stock.owner == self.name:
-                self.my_shares.append(stock.id)
+                self.my_shares.append([stock.id,stock.last_buy])
 
 
 

@@ -10,12 +10,6 @@ class Stock:
         self.selling = selling
         self.current_sell = current_sell
 
-    def trade(self,investor,time_stamp,tickers):
-        self.owner = investor.name
-        self.last_traded_at = time_stamp
-        self.last_buy= self.current_sell
-        tickers.append(self.last_buy)
-        return tickers
 
 
 
