@@ -3,16 +3,36 @@ from datetime import datetime
 from Stock import Stock
 from Market import Market
 from Investor import Investor
+import generate
 
 n_shares = 5
-investor_name = ["joe","max","mark","chris","ian"]
-list=[]
-for i in range(0,n_shares):
-    list.append(Stock(owner=investor_name[i],last_buy= random.randint(5,10),selling =random.choice([True, False]),current_sell=random.randint(6,11),last_traded_at =datetime.now()))
+n_investors = 40
+inv_list = generate.generate_inv_list(n_investors)
+stock_list  = generate.generate_stock_list(n_shares)
+t_max = 500
+tickers = []
+market = Market(stocks=stock_list,top = tickers )
 
-for item in list:
-    print(item.owner,item.last_buy,item.selling,item.current_sell,item.last_traded_at)
-top = 0
-market = Market(stocks=list,top = top )
-print(market.average_price,market.latest_traded_price)
+for t in range(0,t_max):
+    for investor in inv_list:
+        decision = random.choices(["Sell","Buy","Hold"],weights = [investor.sell_probability,investor.buy_probability,investor.hold_probability])
+        print(decision)
+        if decision[0] == "Sell":
+            investor.set_to_selling(market,10,investor.my_shares)
+        elif decision[0] == "Buy":
+            b_price=investor.set_buying_price(market)
+            candidate_id = market.match(b_price)
+            tick=market.trade(candidate_id,investor)
+            tickers.append(tick)
+        elif decision[0] == "Hold":
+            investor.set_to_hold(market,investor.my_shares)
+        else:
+            print("Error")
+
+
+
+
+print(tickers)
+
+
 
