@@ -1,33 +1,18 @@
+import random
+from datetime import datetime
+from Stock import Stock
+from Market import Market
 from Investor import Investor
-from scipy.stats import skewnorm
-from scipy.optimize import minimize
-import numpy as np
-import matplotlib.pyplot as plt
-current=24
-iv=20
-percentage = 0.05
-def objective(params):
-    alpha, scale = params
-    # Calculate the percentile value of the target value
-    percentile_value = skewnorm.cdf(iv, alpha, loc=current, scale=scale)
-    # We want this to be close to the target percentile
-    return (percentile_value - percentage) ** 2
 
-# Initial guesses for alpha and scale
-initial_guess = [-5, 2]
+n_shares = 5
+investor_name = ["joe","max","mark","chris","ian"]
+list=[]
+for i in range(0,n_shares):
+    list.append(Stock(owner=investor_name[i],last_buy= random.randint(5,10),selling =random.choice([True, False]),current_sell=random.randint(6,11),last_traded_at =datetime.now()))
 
-# Perform the minimization
-result = minimize(objective, initial_guess, bounds=[(None, None), (0.1, None)])
+for item in list:
+    print(item.owner,item.last_buy,item.selling,item.current_sell,item.last_traded_at)
+top = 0
+market = Market(stocks=list,top = top )
+print(market.average_price,market.latest_traded_price)
 
-print(result.x)
-#difference = iv - current
-
-random_numbers = skewnorm.rvs(result.x[0], current,result.x[1] , size=10000)
-n, bins = np.histogram(random_numbers, bins=200)
-actual_peak_index = np.where(n == max(n))[0][0]
-actual_peak = bins[actual_peak_index]
-random_numbers+= current-actual_peak
-print(n[actual_peak_index],actual_peak)
-#plt.plot(n)
-plt.hist(random_numbers,bins=200)
-plt.show()
