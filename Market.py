@@ -28,6 +28,7 @@ class Market:
                 stock.owner = investor.name
                 stock.last_traded_at = datetime.now()
                 stock.last_buy = stock.current_sell
+                print("a trade happened")
                 return [stock.last_buy, stock.last_traded_at]
 
         print("No matching ID")

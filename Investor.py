@@ -1,19 +1,38 @@
-import numpy as np
-import random
+from numpy import random
+import math
+
+
 
 
 class Investor:
-    def __init__(self,name,sell_probability,buy_probability,hold_probability,pp,ip):
-        self.name = name
-        self.sell_probability = sell_probability
-        self.buy_probability = buy_probability
-        self.hold_probability = hold_probability
-        self.pp = pp
-        self.ip = ip
+    def __init__(self,name,type):
+        self.name, self.type = name,type
+        self.sell_probability = 0.1
+        self.buy_probability = 0.1
+        self.hold_probability = 0.8
+        self.eval = 0
         self.my_shares = []
 
     def update_prob(self,market):
-        return 0
+        sell_weight = 2
+        buy_weight = 2
+        if not self.my_shares:
+            self.sell_probability = 0
+            self.buy_probability = 1 / (1 + buy_weight*math.exp(-(self.eval-market.average_price)))
+            self.hold_probability = 1- self.buy_probability - self.sell_probability
+        else:
+            self.sell_probability = 1 / (1 + sell_weight*math.exp(self.eval - market.average_price))
+            self.buy_probability = 1 / (1 + buy_weight*math.exp(-(self.eval - market.average_price)))
+            self.hold_probability = 1 - self.buy_probability - self.sell_probability
+
+
+
+    def evaluate(self,market,iv):
+        if type == "s":
+            self.eval = random.normal(loc=market.average_price,scale=2)
+        else:
+            self.eval = random.normal(loc=iv,scale=2)
+
 
     def set_to_selling(self,market,price,my_shares):
         ids = []
