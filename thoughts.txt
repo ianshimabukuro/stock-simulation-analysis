@@ -1,0 +1,8 @@
+In terms of putting a selling price, most people will try to get the highest possible price, so it should be a skew gaussian.
+In terms of defining a buy price, most people will try to be at the lowest, hoever it should match the selling prices, so putting it too low, there's a risk of not having a seller.
+
+Now it should try to match a buy price and with a selling price. The seller has the upper hand as it can only be sold at his defined price. As it is hard to
+find the exact same buying price, it is better to just find a stocks in a range around your buying price. The closer it is the higher the chance of acutally buying
+
+So set buy price, define a range, compare found stock price with original buy price and find the match probability
+

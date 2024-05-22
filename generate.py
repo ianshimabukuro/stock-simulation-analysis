@@ -13,7 +13,7 @@ def generate_inv_list(n_inv):
     assert len(set(names)) == len(names)
 
     for i in range(0,n_inv):
-        list.append(Investor(name=names[i],type = "s"))
+        list.append(Investor(name=names[i],type = random.choices(["s","d"],weights=[0.1,0.9])))
     return list
 
 def generate_stock_list(n_shares):
